@@ -1,0 +1,24 @@
+/** 
+   The player will interact with SHUTTLES using the mouse. For readability reasons, we will create a helper method that deals with mouse input and call it when appropriate from the Update() method.
+*/
+  
+      /**
+          Makes the mouse visible and reports the X and Y position of the mouse relative to the upper left corner of the window. 
+      */
+    private void HandleMouseInput(MouseState mouseState)
+    {
+  
+              this.IsMouseVisible = true;
+              
+        int x = ((mouseState.X -
+              (int)gameBoardDisplayOrigin.X) / GamePiece.PieceWidth);
+
+         int y = ((mouseState.Y -
+              (int)gameBoardDisplayOrigin.Y) / GamePiece.PieceHeight);
+              
+            
+
+              
+    }
+  
+  
