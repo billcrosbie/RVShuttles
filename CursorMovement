@@ -2,23 +2,76 @@
    The player will interact with SHUTTLES using the mouse. For readability reasons, we will create a helper method that deals with mouse input and call it when appropriate from the Update() method.
 */
   
-      /**
-          Makes the mouse visible and reports the X and Y position of the mouse relative to the upper left corner of the window. 
+       /**
+         An intialization method should b created  
       */
+            this.IsMouseVisible = true;
+            graphics.PreferredBackBufferWidth = 800; // example size
+            graphics.PreferredBackBufferHeight = 600; // example size
+            graphics.ApplyChanges();
+            gameBoard = new GameBoard();
+      
+     
+   function Position (shuttle, hole)
+    {
+        this.shuttle = shuttle;
+        this.hole = hole;
+    }
+    
+     /**
+          Makes the mouse visible and reports the X and Y position of the mouse relative to the upper left corner of the window. 
+     */
+      
     private void HandleMouseInput(MouseState mouseState)
     {
   
-              this.IsMouseVisible = true;
-              
         int x = ((mouseState.X -
               (int)gameBoardDisplayOrigin.X) / GamePiece.PieceWidth);
 
          int y = ((mouseState.Y -
               (int)gameBoardDisplayOrigin.Y) / GamePiece.PieceHeight);
               
-            
+         if ((x >= 0) && (x < GameBoard.GameBoardWidth) &&
+              (y >= 0) && (y < GameBoard.GameBoardHeight))
+         {
+                if (mouseState.RightButton == ButtonState.Pressed)
+                {
+                     gameBoard.PegMove(x, y, true);
+                     timeSinceLastInput = 0.0f;
+                }
+    
+    
+     switch (gameState)
+{
+    case GameStates.TitleScreen:
+        if (mouse.GetState().IsRightButtonDown(ButtonState.Pressed))
+        {
+            gameBoard.ClearBoard();
+            gameState = GameStates.Playing;
+        }
+        break;
 
-              
+     case GameStates.Playing:
+        timeSinceLastInput +=
+          (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+        if (timeSinceLastInput >= MinTimeSinceLastInput)
+        {
+            HandleMouseInput(Mouse.GetState());
+        }
+
+        break;
+}
+    
+    
+    
+    
+    
+    
+    
     }
+    
+    
+    
   
   
