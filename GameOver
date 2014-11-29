@@ -1,0 +1,17 @@
+// An example code that I think we should implement in the SHUTTLES game
+
+ private void gameOver()
+    {
+        if (CheckIfBlueWon())
+        {
+            theGameOver = true;
+            string message = String.Format("GAME OVER!!!{0}Your score is: {1}", GameScore);
+            return true;
+        }
+        else if (CheckIfRedWon())
+        {
+            theGameOver = true;
+            string message = String.Format("GAME OVER!!!{0}Your score is: {1}", GameScore);
+            return true;
+        }
+    }
