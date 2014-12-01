@@ -3,7 +3,7 @@
 */
   
        /**
-         An intialization method should b created  
+         An intialization method should be created  
       */
             this.IsMouseVisible = true;
             graphics.PreferredBackBufferWidth = 800; // example size
@@ -12,12 +12,7 @@
             gameBoard = new GameBoard();
       
      
-   function Position (shuttle, hole)
-    {
-        this.shuttle = shuttle;
-        this.hole = hole;
-    }
-    
+   
      /**
           Makes the mouse visible and reports the X and Y position of the mouse relative to the upper left corner of the window. 
      */
