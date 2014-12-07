@@ -91,38 +91,6 @@ namespace Shuttles
 
             HandleMouseInput(Mouse.GetState());
 
-            switch (state)
-            {
-                case State.normal:
-
-                    break;
-
-                case State.movingPeg:
-
-                    int tempPegX = (int)thePeg.X;
-                    int tempPegY = (int)thePeg.Y;
-                    int anotherTempX= (int) mouseLocation.X;
-                    int anotherTempY = (int)mouseLocation.Y;
-                    if (mouseLocation.X > thePeg.X)
-                    {
-                       
-                        while (mouseLocation.Y != thePeg.Y)
-                        {
-                            mouseLocation = new Vector2( anotherTempX, tempPegY);
-                        }
-                    }
-                    if (mouseLocation.Y > thePeg.Y)
-                    {
-                        while (mouseLocation.X != thePeg.X)
-                        {
-                            mouseLocation = new Vector2(tempPegX, anotherTempY);
-                        }
-                    }
-
-                    
-                    break;
-            }       
-
             base.Update(gameTime);
         }
            private void HandleMouseInput(MouseState mouseState)
@@ -162,14 +130,22 @@ namespace Shuttles
 
                if (mouseState.LeftButton == ButtonState.Pressed)
                {
-                   int currentX = (int)mouseLocation.X;
-                   int currentY = (int)mouseLocation.Y;
-                   int pegX = (int)thePeg.X;
-                   int pegY = (int)thePeg.Y;
-                   
-                   if (mouseLocation.Equals(thePeg))
-                   {
-                       state = State.movingPeg;
+                if (mouseLocation.X > (thePeg.X + 120))
+                  {
+                      mouseLocation.X = thePeg.X + 120;
+                      mouseLocation.Y = thePeg.Y;
+                      rectangleX = (int)mouseLocation.X;
+                      rectangleY = (int)mouseLocation.Y;
+                      mouseRect = new Rectangle(rectangleX, rectangleY, 60, 60);
+                  }
+                  else if (mouseLocation.Y > (thePeg.Y + 120))
+                  {
+                      mouseLocation.X = thePeg.X;
+                      mouseLocation.Y = thePeg.Y + 120;
+                      rectangleX = (int)mouseLocation.X;
+                      rectangleY = (int)mouseLocation.Y;
+                      mouseRect = new Rectangle(rectangleX, rectangleY, 60, 60);
+                  }
                    }
                }
 
