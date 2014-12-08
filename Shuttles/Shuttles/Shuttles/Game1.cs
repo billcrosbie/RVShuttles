@@ -18,6 +18,7 @@ namespace Shuttles
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Board gameBoard;
 
         public Game1()
         {
@@ -35,6 +36,8 @@ namespace Shuttles
         {
             // TODO: Add your initialization logic here
 
+            Board gameBoard = new Board(12, 10);
+            
             base.Initialize();
         }
 
@@ -69,6 +72,8 @@ namespace Shuttles
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+
 
             // TODO: Add your update logic here
 

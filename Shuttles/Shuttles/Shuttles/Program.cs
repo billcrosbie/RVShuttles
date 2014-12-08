@@ -12,7 +12,7 @@ namespace Shuttles
         {
             using (Game1 game = new Game1())
             {
-            	Console.WriteLine("Hello World. #weshuttlesnow");
+                
                 game.Run();
             }
         }
