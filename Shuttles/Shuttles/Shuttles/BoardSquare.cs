@@ -24,5 +24,10 @@ namespace Shuttles
             whosPiece = currentPiece;
         }
 
+        public void setWall(Wall wallDirection1, Wall wallDirection2)
+        {
+            iswall1 = wallDirection1;
+            iswall2 = wallDirection2;
+        }
     }
 }
