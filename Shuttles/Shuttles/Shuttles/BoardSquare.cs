@@ -40,6 +40,15 @@ namespace Shuttles
             wall2 = wallDirection2;
         }
 
+        public Wall getWall1()
+        {
+            return wall1;
+        }
+        public Wall getWall2()
+        {
+            return wall2;
+        }
+
         public int getPiece()
         {
             return piece;

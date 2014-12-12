@@ -14,16 +14,16 @@ namespace Shuttles
     public class Board
     {
         //looking from piece end to piece end
-        public const int boardWidth = 12; //left to right
-        public const int boardHeight = 10; //top to bottom
+        public const int boardWidth = 13; //left to right
+        public const int boardHeight = 11; //top to bottom
         public BoardSquare[,] boardArray = new BoardSquare[boardWidth, boardHeight];
 
         //fills array with boardsquares
         public Board()
         {
-            for (int i = 0; i <= boardWidth; i++)
+            for (int i = 0; i < boardWidth; i++)
             {
-                for (int j = 0; j <= boardHeight; j++)
+                for (int j = 0; j < boardHeight; j++)
                 {
                     boardArray[i , j] = new BoardSquare(i, j, BoardSquare.Wall.NONE, BoardSquare.Wall.NONE, 0);
                 }
@@ -87,11 +87,22 @@ namespace Shuttles
             
         }
 
-        public void checkMove()
+        public bool checkMoveEast(int xCoord, int yCoord)
         {
+            bool valid = true;
+            BoardSquare checkingSquare = boardArray[xCoord, yCoord];
+
+            if (boardArray[xCoord, yCoord].getWall1().Equals(BoardSquare.Wall.EAST))
+            {
+                valid = false;
+                return valid;
+            }
+            
+            return valid;
+
+        }
 
         }
                           
         }
-    }
 
