@@ -17,6 +17,7 @@ namespace Shuttles
         public const int boardWidth = 13; //left to right
         public const int boardHeight = 11; //top to bottom
         public BoardSquare[,] boardArray = new BoardSquare[boardWidth, boardHeight];
+        int activePlayer = 1; 
 
         //fills array with boardsquares
         public Board()
@@ -87,99 +88,68 @@ namespace Shuttles
             
         }
 
-        //returns number of valid moves in direction named in method
-        //i.e. if it returns 4, you can move up to 4 spaces east
-        public int checkMoveEast(int xCoord, int yCoord)
+        //fills dictionary of valid moves for given direction
+        //i.e. for String, should return all valid squares in which you can place your piece as a vector2
+        public void fillMoveDict(int xCoord, int yCoord)
         {
-            int numValid = 0;
+            Dictionary<string, List<Vector2>> validDict = new Dictionary<string, List<Vector2>>();
+            List<Vector2> validMoves = new List<Vector2>();
 
-            for (int i = xCoord; i < boardWidth; i++)
+            //east first
+            for(int i = xCoord; i < boardWidth; i++)
             {
                 BoardSquare currentSquare = boardArray[i, yCoord];
-                if (currentSquare.getWall1().Equals(BoardSquare.Wall.EAST) || currentSquare.getWall2().Equals(BoardSquare.Wall.EAST))
+                BoardSquare checkedSquare  = boardArray[i, yCoord];
+                
+                if(checkedSquare.getWall1().Equals(BoardSquare.Wall.EAST) || checkedSquare.getWall2().Equals(BoardSquare.Wall.EAST))
                 {
-                    return numValid;
+                    validMoves = validMoves;
                 }
-                else if (currentSquare.isOccupied() == true)
+                else if(checkedSquare.isOccupied() == true)
                 {
-                    return numValid;
-                }
-                else
-                {
-                    numValid++;
-                }
-            }
-            return numValid;
+                    if(checkedSquare.getPiece() == activePlayer)
+                    {
+                        validMoves = validMoves;
+                    }
+                    else if(checkedSquare.getPiece() != activePlayer)
+                    {   
+                        /*
+                         * accounts for some weird conditions such as:
+                         * jumping over player, jumping over player to find wall on other side, jumping over player to find other player on other side
+                         */
+                        if(boardArray[(i+1),yCoord].isOccupied() == true || 
+                            boardArray[(i+1),yCoord].getWall1().Equals(BoardSquare.Wall.EAST) ||
+                            boardArray[(i+1),yCoord].getWall2().Equals(BoardSquare.Wall.EAST) ||
+                            boardArray[(i+2),yCoord].isOccupied() == true)
+                        {
+                            validMoves = validMoves;
+                        }
+                        else
+                        {
+                            validMoves.Add(new Vector2(checkedSquare.getX(), checkedSquare.getY()));
+                        }
+
+
+
         }
 
-        public int checkMoveWest(int xCoord, int yCoord)
-        {
-            int numValid = 0;
 
-            for (int i = xCoord; i >= 0; i--)
-            {
-                BoardSquare currentSquare = boardArray[i, yCoord];
-                if (currentSquare.getWall1().Equals(BoardSquare.Wall.WEST) || currentSquare.getWall2().Equals(BoardSquare.Wall.WEST))
-                {
-                    return numValid;
-                }
-                else if (currentSquare.isOccupied() == true)
-                {
-                    return numValid;
-                }
-                else
-                {
-                    numValid++;
-                }
-            }
-            return numValid;
-        }
 
-        public int checkMoveNorth(int xCoord, int yCoord)
-        {
-            int numValid = 0;
 
-            for (int i = yCoord; i <= boardHeight; i++)
-            {
-                BoardSquare currentSquare = boardArray[xCoord, i];
-                if (currentSquare.getWall1().Equals(BoardSquare.Wall.NORTH) || currentSquare.getWall2().Equals(BoardSquare.Wall.NORTH))
-                {
-                    return numValid;
-                }
-                else if (currentSquare.isOccupied() == true)
-                {
-                    return numValid;
-                }
-                else
-                {
-                    numValid++;
-                }
-            }
-            return numValid;
-        }
 
-        public int checkMoveSouth(int xCoord, int yCoord)
-        {
-            int numValid = 0;
-  
-            for (int i = yCoord; i >= 0; i--)
-            {
-                BoardSquare currentSquare = boardArray[xCoord, i];
-                if (currentSquare.getWall1().Equals(BoardSquare.Wall.NORTH) || currentSquare.getWall2().Equals(BoardSquare.Wall.NORTH))
-                {
-                    return numValid;
-                }
-                else if (currentSquare.isOccupied() == true)
-                {
-                    return numValid;
-                }
-                else
-                {
-                    numValid++;
-                }
-            }
-            return numValid;
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         public void moveShuttle(int row)
@@ -204,11 +174,6 @@ namespace Shuttles
                 return winner;
             }
             return winner;
-        }
-
-        public List<Vector2> returnValidMovesEast()
-        {
-
         }
 
 
