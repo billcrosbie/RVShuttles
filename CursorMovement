@@ -32,17 +32,20 @@
                 if (mouseState.RightButton == ButtonState.Pressed)
                 {
                      gameBoard.PegMove(x, y, true);
+                     gameBoard.ShiftMove(x, y, true);
                      timeSinceLastInput = 0.0f;
                 }
     
     
      switch (gameState)
-{
+     {
     case GameStates.TitleScreen:
         if (mouse.GetState().IsRightButtonDown(ButtonState.Pressed))
         {
             gameBoard.ClearBoard();
+            playerScore = 0;
             gameState = GameStates.Playing;
+            
         }
         break;
 
@@ -56,9 +59,9 @@
         }
 
         break;
-}
+     }
    
-    
+   
     
     
   
