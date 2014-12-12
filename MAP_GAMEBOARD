@@ -1,0 +1,318 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+namespace Shuttles
+{
+    class GameBoard
+    {
+        //A Seperate Class Called Tile Will Be used for these instead of Rectangles
+        //Tile Takes Rectangle for location(width, height, start x, start y), Rectanlge for Sprite Location(or maybe just sprite), 
+        #region gameboard pieces
+        private static Texture2D texture;
+        private static Rectangle redLeftCorner;
+        private static Rectangle redMiddleBlank;
+        private static Rectangle redRightCorner;
+        private static Rectangle redLeftHole;
+        private static Rectangle redRightHole;
+        private static Rectangle redMiddleHole;
+
+        private static Rectangle blueLeftCorner;
+        private static Rectangle blueMiddleBlank;
+        private static Rectangle blueRightCorner;
+        private static Rectangle blueLeftHole;
+        private static Rectangle blueMiddleHole;
+        private static Rectangle blueRightHole;
+
+        private static Rectangle whiteLeftHole;
+        private static Rectangle whiteMiddleHole;
+        private static Rectangle whiteRightHole;
+
+        private static Rectangle emptySpace;
+        private static Rectangle nothing;
+        private static Rectangle horWall;
+        private static Rectangle vertWall;
+        #endregion
+
+        #region rows
+        //i figured since the rows of the gameboard can move, it would be easier to add the tiles of the game by row
+        static public Rectangle[] redStart = new Rectangle[13];
+        static public Rectangle[] blueStart = new Rectangle[13];
+        static public Rectangle[] redOne = new Rectangle[13];
+        static public Rectangle[] redTwo = new Rectangle[13];
+        static public Rectangle[] redThree = new Rectangle[13];
+        static public Rectangle[] redFour = new Rectangle[13];
+        static public Rectangle[] blueOne = new Rectangle[13];
+        static public Rectangle[] blueTwo = new Rectangle[13];
+        static public Rectangle[] blueThree = new Rectangle[13];
+        static public Rectangle[] blueFour = new Rectangle[13];
+        static public Rectangle[] white = new Rectangle[13];
+
+        public static Rectangle[][] rows = new Rectangle[][] { redStart, blueOne, redOne, blueTwo, redTwo, white, blueThree, redThree, blueFour, redFour, blueStart };
+        #endregion
+        #region measurements
+        public const int TileWidth = 60;
+        public const int TileHeight = 60;
+        public const int MapWidth = 780;
+        public const int MapHeight = 660;
+        #endregion
+
+        
+        static public void Initialize(Texture2D tileTexture)
+        {
+            texture = tileTexture;
+            //Assigning each tile a sprite from the spritesheet
+            redLeftCorner = new Rectangle(0, 0, TileWidth, TileHeight);
+            redMiddleBlank = new Rectangle(0, 60, TileWidth, TileHeight);
+            redRightCorner = new Rectangle(0, 120, TileWidth, TileHeight);
+            redLeftHole = new Rectangle(0, 240, TileWidth, TileHeight);
+            redMiddleHole = new Rectangle(0, 180, TileWidth, TileHeight);
+            redRightHole = new Rectangle(0, 300, TileWidth, TileHeight);
+            blueLeftCorner = new Rectangle(60, 0, TileWidth, TileHeight);
+            blueMiddleBlank = new Rectangle(60, 60, TileWidth, TileHeight);
+            blueRightCorner = new Rectangle(60, 120, TileWidth, TileHeight);
+            blueLeftHole = new Rectangle(60, 240, TileWidth, TileHeight);
+            blueMiddleHole = new Rectangle(60, 180, TileWidth, TileHeight);
+            blueRightHole = new Rectangle(60, 300, TileWidth, TileHeight);
+            whiteLeftHole = new Rectangle(120, 240, TileWidth, TileHeight);
+            whiteMiddleHole = new Rectangle(120, 180, TileWidth, TileHeight);
+            whiteRightHole = new Rectangle(120, 300, TileWidth, TileHeight);
+            emptySpace = new Rectangle(120, 360, TileWidth, TileHeight);
+            nothing = new Rectangle(180, 180, TileWidth, TileHeight);
+            horWall = new Rectangle(2, 194, 32, 7);
+            vertWall = new Rectangle(46, 194, 4, 28);
+
+            
+                #region making the gameboard
+                
+                        redStart[0] = nothing;
+                        redStart[1] = nothing;
+                        redStart[2] = redLeftCorner;
+                        redStart[3] = redMiddleBlank;
+                        redStart[4] = redMiddleHole;
+                        redStart[5] = redMiddleHole;
+                        redStart[6] = redMiddleHole;
+                        redStart[7] = redMiddleHole;
+                        redStart[8] = redMiddleHole;
+                        redStart[9] = redMiddleBlank;
+                        redStart[10] = redRightCorner;
+                        redStart[11] = nothing;
+                        redStart[12] = nothing;
+
+                   
+                        blueStart[0] = nothing;
+                        blueStart[1] = nothing;
+                        blueStart[2] = blueLeftCorner;
+                        blueStart[3] = blueMiddleBlank;
+                        blueStart[4] = blueMiddleHole;
+                        blueStart[5] = blueMiddleHole;
+                        blueStart[6] = blueMiddleHole;
+                        blueStart[7] = blueMiddleHole;
+                        blueStart[8] = blueMiddleHole;
+                        blueStart[9] = blueMiddleBlank;
+                        blueStart[10] = blueRightCorner;
+                        blueStart[11] = nothing;
+                        blueStart[12] = nothing;
+
+                    
+                        blueOne[0] = emptySpace;
+                        blueOne[1] = emptySpace;
+                        blueOne[2] = blueLeftHole;
+                        blueOne[3] = blueMiddleHole;
+                        blueOne[4] = blueMiddleHole;
+                        blueOne[5] = blueMiddleHole;
+                        blueOne[6] = blueMiddleHole;
+                        blueOne[7] = blueMiddleHole;
+                        blueOne[8] = blueMiddleHole;
+                        blueOne[9] = blueMiddleHole;
+                        blueOne[10] = blueRightHole;
+                        blueOne[11] = emptySpace;
+                        blueOne[12] = emptySpace;
+                    
+                     redOne[0] = emptySpace;
+                        redOne[1] = emptySpace;
+                        redOne[2] = redLeftHole;
+                        redOne[3] = redMiddleHole;
+                        redOne[4] = redMiddleHole;
+                        redOne[5] = redMiddleHole;
+                        redOne[6] = redMiddleHole;
+                        redOne[7] = redMiddleHole;
+                        redOne[8] = redMiddleHole;
+                        redOne[9] = redMiddleHole;
+                        redOne[10] = redRightHole;
+                        redOne[11] = emptySpace;
+                        redOne[12] = emptySpace;
+                   
+                        blueTwo[0] = emptySpace;
+                        blueTwo[1] = emptySpace;
+                        blueTwo[2] = blueLeftHole;
+                        blueTwo[3] = blueMiddleHole;
+                        blueTwo[4] = blueMiddleHole;
+                        blueTwo[5] = blueMiddleHole;
+                        blueTwo[6] = blueMiddleHole;
+                        blueTwo[7] = blueMiddleHole;
+                        blueTwo[8] = blueMiddleHole;
+                        blueTwo[9] = blueMiddleHole;
+                        blueTwo[10] = blueRightHole;
+                        blueTwo[11] = emptySpace;
+                        blueTwo[12] = emptySpace;
+                   
+                        redTwo[0] = emptySpace;
+                        redTwo[1] = emptySpace;
+                        redTwo[2] = redLeftHole;
+                        redTwo[3] = redMiddleHole;
+                        redTwo[4] = redMiddleHole;
+                        redTwo[5] = redMiddleHole;
+                        redTwo[6] = redMiddleHole;
+                        redTwo[7] = redMiddleHole;
+                        redTwo[8] = redMiddleHole;
+                        redTwo[9] = redMiddleHole;
+                        redTwo[10] = redRightHole;
+                        redTwo[11] = emptySpace;
+                        redTwo[12] = emptySpace;
+                  
+                        white[0] = emptySpace;
+                        white[1] = emptySpace;
+                        white[2] = whiteLeftHole;
+                        white[3] = whiteMiddleHole;
+                        white[4] = whiteMiddleHole;
+                        white[5] = whiteMiddleHole;
+                        white[6] = whiteMiddleHole;
+                        white[7] = whiteMiddleHole;
+                        white[8] = whiteMiddleHole;
+                        white[9] = whiteMiddleHole;
+                        white[10] = whiteRightHole;
+                        white[11] = emptySpace;
+                        white[12] = emptySpace;
+
+                   
+
+                        blueThree[0] = emptySpace;
+                        blueThree[1] = emptySpace;
+                        blueThree[2] = blueLeftHole;
+                        blueThree[3] = blueMiddleHole;
+                        blueThree[4] = blueMiddleHole;
+                        blueThree[5] = blueMiddleHole;
+                        blueThree[6] = blueMiddleHole;
+                        blueThree[7] = blueMiddleHole;
+                        blueThree[8] = blueMiddleHole;
+                        blueThree[9] = blueMiddleHole;
+                        blueThree[10] = blueRightHole;
+                        blueThree[11] = emptySpace;
+                        blueThree[12] = emptySpace;
+                   
+                        redThree[0] = emptySpace;
+                        redThree[1] = emptySpace;
+                        redThree[2] = redLeftHole;
+                        redThree[3] = redMiddleHole;
+                        redThree[4] = redMiddleHole;
+                        redThree[5] = redMiddleHole;
+                        redThree[6] = redMiddleHole;
+                        redThree[7] = redMiddleHole;
+                        redThree[8] = redMiddleHole;
+                        redThree[9] = redMiddleHole;
+                        redThree[10] = redRightHole;
+                        redThree[11] = emptySpace;
+                        redThree[12] = emptySpace;
+                   
+                        blueFour[0] = emptySpace;
+                        blueFour[1] = emptySpace;
+                        blueFour[2] = blueLeftHole;
+                        blueFour[3] = blueMiddleHole;
+                        blueFour[4] = blueMiddleHole;
+                        blueFour[5] = blueMiddleHole;
+                        blueFour[6] = blueMiddleHole;
+                        blueFour[7] = blueMiddleHole;
+                        blueFour[8] = blueMiddleHole;
+                        blueFour[9] = blueMiddleHole;
+                        blueFour[10] = blueRightHole;
+                        blueFour[11] = emptySpace;
+                        blueFour[12] = emptySpace;
+                   
+                        redFour[0] = emptySpace;
+                        redFour[1] = emptySpace;
+                        redFour[2] = redLeftHole;
+                        redFour[3] = redMiddleHole;
+                        redFour[4] = redMiddleHole;
+                        redFour[5] = redMiddleHole;
+                        redFour[6] = redMiddleHole;
+                        redFour[7] = redMiddleHole;
+                        redFour[8] = redMiddleHole;
+                        redFour[9] = redMiddleHole;
+                        redFour[10] = redRightHole;
+                        redFour[11] = emptySpace;
+                        redFour[12] = emptySpace;
+                  
+            #endregion
+        }
+        #region drawing the board
+        //There is something wrong with this method
+        static public void Draw(SpriteBatch spriteBatch)
+        {
+            
+            Vector2 currentRect = new Vector2(120, 60);
+            for (int x = 0; x <= MapHeight; x += 60)
+            {
+                for (int y = 0; y <=  MapWidth; y += 60)
+                {
+                     
+                    if ((x >= 0) && (y >= 0) &&
+                        (x < MapHeight) && (y <= MapWidth))
+                    {
+
+                        if (x == 0 && y == 0)
+                        {
+
+                            spriteBatch.Draw(
+                                texture,
+                                currentRect,
+                                rows[x][y],
+                                Color.White);
+                        }
+                        else if ((y / 60) > 12)
+                            break;
+                        else if (x == 0 && y != 0)
+                        {
+
+                            spriteBatch.Draw(
+                                texture,
+                                currentRect,
+                                rows[x][y / 60],
+                                Color.White);
+                        }
+                        //When i try to run this in a Game1 class, i get an array outofbounds exception
+                        else if (x != 0 && y == 0)
+                        {
+
+                            spriteBatch.Draw(
+                                texture,
+                                currentRect,
+                                rows[x / 60][y],
+                                Color.White);
+                        }
+                        else if (x != 0 && y != 0)
+                        {
+
+                            spriteBatch.Draw(
+                                texture,
+                                currentRect,
+                                rows[x / 60][y / 60],
+                                Color.White);
+                        }
+                        
+                    }
+
+                    currentRect.X += 60;
+                }
+                currentRect.X = 120;
+                currentRect.Y += 60;
+            }
+        #endregion
+
+
+        }
+    }
+
+}
