@@ -36,7 +36,7 @@ namespace Shuttles
         {
             // TODO: Add your initialization logic here
 
-            Board gameBoard = new Board(12, 10);
+            Board gameBoard = new Board();
             
             base.Initialize();
         }

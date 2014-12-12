@@ -1,7 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Shuttles
 {
@@ -10,24 +16,71 @@ namespace Shuttles
         public int xLocation;
         public int yLocation;
         public enum Wall {NORTH, EAST, SOUTH, WEST, NONE};
-        public enum Occupant { PLAYER1, PLAYER2, NONE };
-        Wall iswall1 = Wall.NONE;
-        Wall iswall2 = Wall.NONE;
-        Occupant whosPiece;
+        //should be 0 for empty, 1 for player 1, 2 for player 2
+        public int piece;
+        Wall wall1 = Wall.NONE;
+        Wall wall2 = Wall.NONE;
 
-        public BoardSquare(int xCoord, int yCoord, Wall wall1, Wall wall2, Occupant currentPiece)
+        public BoardSquare(int xCoord, int yCoord, Wall iswall1, Wall iswall2, int currentPiece)
         {
             xLocation = xCoord;
             yLocation = yCoord;
-            wall1 = iswall1;
-            wall2 = iswall2;
-            whosPiece = currentPiece;
+            iswall1 = wall1;
+            iswall2 = wall2;
+            piece = currentPiece;
+            if (currentPiece < 0 || currentPiece > 2)
+            {
+                piece = 0;
+            }
         }
 
         public void setWall(Wall wallDirection1, Wall wallDirection2)
         {
-            iswall1 = wallDirection1;
-            iswall2 = wallDirection2;
+            wall1 = wallDirection1;
+            wall2 = wallDirection2;
         }
+
+        public int getPiece()
+        {
+            return piece;
+        }
+
+        public void setPiece(int forWhom)
+        {
+            //lol at that name
+            piece = forWhom;
+            if (forWhom < 0 || forWhom > 2)
+            {
+                piece = 0;
+            }
+
+        }
+
+        public int getRow()
+        {
+            return yLocation;
+        }
+
+        public int getColumn()
+        {
+            return xLocation;
+        }
+
+        public bool isOccupied()
+        {
+            bool full = false;
+            if (getPiece() == 0)
+                return full;
+            else
+            {
+                full = true;
+                return full;
+            }
+        }
+                
+
+
+
+
     }
 }
