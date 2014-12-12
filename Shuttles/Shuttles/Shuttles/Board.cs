@@ -98,14 +98,18 @@ namespace Shuttles
             //east first
             //currentsquare is where you are
             //checkedsquare is ideally where we are checking for jumps and what not
-            for(int i = xCoord; i < boardWidth; i++)
+            for(int i = xCoord; i <= boardWidth; i++)
             {
-                BoardSquare currentSquare = boardArray[i, yCoord];
-                BoardSquare checkedSquare  = boardArray[(i+1), yCoord];
+                BoardSquare currentSquare = boardArray[xCoord, yCoord];
+                BoardSquare checkedSquare  = boardArray[i, yCoord];
                 
                 if(currentSquare.getWall1().Equals(BoardSquare.Wall.EAST) || currentSquare.getWall2().Equals(BoardSquare.Wall.EAST))
                 {
                     validMoves = validMoves;
+                }
+                else if(checkedSquare.getWall1().Equals(BoardSquare.Wall.EAST) || checkedSquare.getWall2().Equals(BoardSquare.Wall.EAST))
+                {
+                	validMoves
                 }
                 else if(checkedSquare.isOccupied() == true)
                 {
@@ -119,10 +123,9 @@ namespace Shuttles
                          * accounts for some weird conditions such as:
                          * jumping over player, jumping over player to find wall on other side, jumping over player to find other player on other side
                          */
-                        if(boardArray[(i+1),yCoord].isOccupied() == true || 
-                            boardArray[(i+1),yCoord].getWall1().Equals(BoardSquare.Wall.EAST) ||
-                            boardArray[(i+1),yCoord].getWall2().Equals(BoardSquare.Wall.EAST) ||
-                            boardArray[(i+2),yCoord].isOccupied() == true)
+                        if(checkedSquare.getWall1().Equals(BoardSquare.Wall.EAST) ||
+                            checkedSquare.getWall2().Equals(BoardSquare.Wall.EAST) ||
+                            checkedSquare.isOccupied() == true)
                         {
                             validMoves = validMoves;
                         }
