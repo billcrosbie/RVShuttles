@@ -99,9 +99,9 @@ namespace Shuttles
             for(int i = xCoord; i < boardWidth; i++)
             {
                 BoardSquare currentSquare = boardArray[i, yCoord];
-                BoardSquare checkedSquare  = boardArray[i, yCoord];
+                BoardSquare checkedSquare  = boardArray[(i+1), yCoord];
                 
-                if(checkedSquare.getWall1().Equals(BoardSquare.Wall.EAST) || checkedSquare.getWall2().Equals(BoardSquare.Wall.EAST))
+                if(currentSquare.getWall1().Equals(BoardSquare.Wall.EAST) || currentSquare.getWall2().Equals(BoardSquare.Wall.EAST))
                 {
                     validMoves = validMoves;
                 }
