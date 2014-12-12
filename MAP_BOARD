@@ -1,0 +1,170 @@
+sing System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+
+
+namespace Shuttles
+{
+    public class Board
+    {
+        //looking from piece end to piece end
+        public const int boardWidth = 12; //left to right
+        public const int boardHeight = 10; //top to bottom
+        public  static BoardSquare[,] boardArray = new BoardSquare[boardWidth, boardHeight];
+        private static Texture2D texture;
+        private static Rectangle horWall;
+        private static Rectangle vertWall;
+        public static Vector2[] Coordinates;
+        //fills array with boardsquares
+        public Board(int width, int height)
+        {
+            width = boardWidth;
+            height = boardHeight;
+            for (int i = 0; i < boardWidth; i++)
+            {
+                for (int j = 0; j < boardHeight; j++)
+                {
+                    boardArray[i , j] = new BoardSquare(i, j, BoardSquare.Wall.NONE, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+                }
+            }
+        }
+
+
+
+
+        public static void setWalls()
+        {
+            boardArray[4, 9] = new BoardSquare(4, 9, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[4, 8] = new BoardSquare(4, 8, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[2, 8] = new BoardSquare(2, 8, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[6, 9] = new BoardSquare(6, 9, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[8, 9] = new BoardSquare(8, 9, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[2, 2] = new BoardSquare(2, 2, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[3, 6] = new BoardSquare(3, 6, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[3, 3] = new BoardSquare(3, 3, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[4, 7] = new BoardSquare(4, 7, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[4, 6] = new BoardSquare(4, 6, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[4, 4] = new BoardSquare(4, 4, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[4, 3] = new BoardSquare(4, 3, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[4, 1] = new BoardSquare(4, 1, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[5, 7] = new BoardSquare(5, 7, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[5, 4] = new BoardSquare(5, 4, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[5, 2] = new BoardSquare(5, 2, BoardSquare.Wall.SOUTH, BoardSquare.Wall.EAST, BoardSquare.Occupant.NONE);
+            boardArray[5, 1] = new BoardSquare(5, 1, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[5, 6] = new BoardSquare(5, 6, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[5, 5] = new BoardSquare(5, 5, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[5, 3] = new BoardSquare(5, 3, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[6, 8] = new BoardSquare(6, 8, BoardSquare.Wall.NORTH, BoardSquare.Wall.EAST, BoardSquare.Occupant.NONE);
+            boardArray[6, 7] = new BoardSquare(6, 7, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[6, 3] = new BoardSquare(6, 3, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[6, 1] = new BoardSquare(6, 1, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[7, 7] = new BoardSquare(7, 7, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[7, 5] = new BoardSquare(7, 5, BoardSquare.Wall.SOUTH, BoardSquare.Wall.WEST, BoardSquare.Occupant.NONE);
+            boardArray[7, 4] = new BoardSquare(7, 5, BoardSquare.Wall.NORTH, BoardSquare.Wall.WEST, BoardSquare.Occupant.NONE);
+            boardArray[7, 1] = new BoardSquare(7, 1, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[8, 7] = new BoardSquare(8, 7, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[8, 5] = new BoardSquare(8, 5, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NORTH, BoardSquare.Occupant.NONE);
+            boardArray[8, 4] = new BoardSquare(8, 4, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[8, 1] = new BoardSquare(8, 1, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[9, 7] = new BoardSquare(9, 7, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[9, 5] = new BoardSquare(9, 5, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[9, 2] = new BoardSquare(9, 2, BoardSquare.Wall.WEST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[10, 8] = new BoardSquare(10, 8, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[10, 2] = new BoardSquare(10, 2, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+
+            Coordinates = new Vector2[37];
+            Coordinates[0] = new Vector2(4 * 60 +120, 9 * 60 + 60);
+            Coordinates[1] = new Vector2(4 * 60 + 120, 8 * 60 + 60);
+            Coordinates[2] = new Vector2(2 * 60 + 120, 8 * 60 + 60);
+            Coordinates[3] = new Vector2(6 * 60 + 120, 9 * 60 + 60);
+            Coordinates[4] = new Vector2(8 * 60 + 120, 9 * 60 + 60);
+            Coordinates[5] = new Vector2(2 * 60 + 120, 3 * 60 + 60);
+            Coordinates[6] = new Vector2(3 * 60 + 120, 6 * 60 + 60);
+            Coordinates[7] = new Vector2(3 * 60 + 120, 4 * 60 + 60);
+            Coordinates[8] = new Vector2(4 * 60 + 120, 7 * 60 + 60);
+            Coordinates[9] = new Vector2(4 * 60 + 120, 6 * 60 + 60);
+            Coordinates[10] = new Vector2(4 * 60 + 120, 4 * 60 + 60);
+            Coordinates[11] = new Vector2(4 * 60 + 120, 4 * 60 + 60);
+            Coordinates[12] = new Vector2(5 * 60 + 120, 2 * 60 + 60);
+            Coordinates[13] = new Vector2(5 * 60 + 120, 7 * 60 + 60);
+            Coordinates[14] = new Vector2(6 * 60 + 120, 4 * 60 + 60);
+            Coordinates[15] = new Vector2(5 * 60 + 120, 3 * 60 + 60);
+            Coordinates[16] = new Vector2(6 * 60 + 120, 2 * 60 + 60);
+            Coordinates[17] = new Vector2(6 * 60 + 120, 6 * 60 + 60);
+            Coordinates[18] = new Vector2(4 * 60 + 120, 5 * 60 + 60);
+            Coordinates[19] = new Vector2(5 * 60 + 120, 3 * 60 + 60);
+            Coordinates[20] = new Vector2(6 * 60 + 120, 8 * 60 + 60);
+            Coordinates[21] = new Vector2(7 * 60 + 120, 8 * 60 + 60);
+            Coordinates[22] = new Vector2(6 * 60 + 120, 3 * 60 + 60);
+            Coordinates[23] = new Vector2(6 * 60 + 120, 1 * 60 + 60);
+            Coordinates[24] = new Vector2(7 * 60 + 120, 7 * 60 + 60);
+            Coordinates[25] = new Vector2(6 * 60 + 120, 5 * 60 + 60);
+            Coordinates[26] = new Vector2(7 * 60 + 120, 4 * 60 + 60);
+            Coordinates[27] = new Vector2(7 * 60 + 120, 1 * 60 + 60);
+            Coordinates[28] = new Vector2(8 * 60 + 120, 7 * 60 + 60);
+            Coordinates[29] = new Vector2(7 * 60 + 120, 5 * 60 + 60);
+            Coordinates[30] = new Vector2(8 * 60 + 120, 4 * 60 + 60);
+            Coordinates[31] = new Vector2(8 * 60 + 120, 1 * 60 + 60);
+            Coordinates[32] = new Vector2(9 * 60 + 120, 7 * 60 + 60);
+            Coordinates[33] = new Vector2(9 * 60 + 120, 5 * 60 + 60);
+            Coordinates[34] = new Vector2(9 * 60 + 120, 4 * 60 + 60);
+            Coordinates[35] = new Vector2(10 * 60 + 120, 8 * 60 + 60);
+            Coordinates[36] = new Vector2(10 * 60 + 120, 2 * 60 + 60);
+
+
+        }
+
+        static public void Initialize(Texture2D wallTexture)
+        {
+            texture = wallTexture;
+            horWall = new Rectangle(0, 365, 60, 10);
+            vertWall = new Rectangle(85, 370, 10, 60);
+            setWalls();
+
+        }
+
+        public static Rectangle getVecs(int q)
+        {
+            float x = Coordinates[q].X;
+            float y = Coordinates[q].Y;
+            Rectangle CoorsVert = new Rectangle((int)x,(int)y,  10, 60);
+            Rectangle CoorsHor = new Rectangle((int)x, (int)y, 60, 10);
+            if (q >= 35) //TEST to figure out which walls are horizontal and which ones are not, 
+                //and which ones need to be moved
+                return CoorsVert;
+            else if (q == 1 || q == 3|| q ==14|| q ==16||q ==17||q ==23 || q == 24|| q == 25|| q == 29)
+                return CoorsVert;
+            
+            else
+                //0 = hor // 1 = vert // 2 = hor 3 = vert 4 = hor 5 = hor//7 = hor//8 = hor//9 = hor//10 = hor//11= hor//15 = vert
+                return CoorsHor;
+        }
+        static public void Draw(SpriteBatch spriteBatch)
+        {
+            
+            for (int x = 0; x < 37; x++)
+            {
+                spriteBatch.Draw(
+                    texture, 
+                      getVecs(x),
+                       vertWall,
+                    Color.White);
+                    }
+        }
+
+
+
+
+
+
+                    
+        }
+    }
+
+
