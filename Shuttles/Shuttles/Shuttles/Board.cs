@@ -57,7 +57,7 @@ namespace Shuttles
             boardArray[6, 1] = new BoardSquare(6, 1, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, 0);
             boardArray[7, 7] = new BoardSquare(7, 7, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, 0);
             boardArray[7, 5] = new BoardSquare(7, 5, BoardSquare.Wall.SOUTH, BoardSquare.Wall.WEST, 0);
-            boardArray[7, 4] = new BoardSquare(7, 5, BoardSquare.Wall.NORTH, BoardSquare.Wall.WEST, 0);
+            boardArray[7, 4] = new BoardSquare(7, 4, BoardSquare.Wall.NORTH, BoardSquare.Wall.WEST, 0);
             boardArray[7, 1] = new BoardSquare(7, 1, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, 0);
             boardArray[8, 7] = new BoardSquare(8, 7, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, 0);
             boardArray[8, 5] = new BoardSquare(8, 5, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NORTH, 0);
@@ -87,22 +87,134 @@ namespace Shuttles
             
         }
 
-        public bool checkMoveEast(int xCoord, int yCoord)
+        //returns number of valid moves in direction named in method
+        //i.e. if it returns 4, you can move up to 4 spaces east
+        public int checkMoveEast(int xCoord, int yCoord)
         {
-            bool valid = true;
-            BoardSquare checkingSquare = boardArray[xCoord, yCoord];
+            int numValid = 0;
 
-            if (boardArray[xCoord, yCoord].getWall1().Equals(BoardSquare.Wall.EAST))
+            for (int i = xCoord; i < boardWidth; i++)
             {
-                valid = false;
-                return valid;
+                BoardSquare currentSquare = boardArray[i, yCoord];
+                if (currentSquare.getWall1().Equals(BoardSquare.Wall.EAST) || currentSquare.getWall2().Equals(BoardSquare.Wall.EAST))
+                {
+                    return numValid;
+                }
+                else if (currentSquare.isOccupied() == true)
+                {
+                    return numValid;
+                }
+                else
+                {
+                    numValid++;
+                }
             }
-            
-            return valid;
+            return numValid;
+        }
+
+        public int checkMoveWest(int xCoord, int yCoord)
+        {
+            int numValid = 0;
+
+            for (int i = xCoord; i >= 0; i--)
+            {
+                BoardSquare currentSquare = boardArray[i, yCoord];
+                if (currentSquare.getWall1().Equals(BoardSquare.Wall.WEST) || currentSquare.getWall2().Equals(BoardSquare.Wall.WEST))
+                {
+                    return numValid;
+                }
+                else if (currentSquare.isOccupied() == true)
+                {
+                    return numValid;
+                }
+                else
+                {
+                    numValid++;
+                }
+            }
+            return numValid;
+        }
+
+        public int checkMoveNorth(int xCoord, int yCoord)
+        {
+            int numValid = 0;
+
+            for (int i = yCoord; i <= boardHeight; i++)
+            {
+                BoardSquare currentSquare = boardArray[xCoord, i];
+                if (currentSquare.getWall1().Equals(BoardSquare.Wall.NORTH) || currentSquare.getWall2().Equals(BoardSquare.Wall.NORTH))
+                {
+                    return numValid;
+                }
+                else if (currentSquare.isOccupied() == true)
+                {
+                    return numValid;
+                }
+                else
+                {
+                    numValid++;
+                }
+            }
+            return numValid;
+        }
+
+        public int checkMoveSouth(int xCoord, int yCoord)
+        {
+            int numValid = 0;
+  
+            for (int i = yCoord; i >= 0; i--)
+            {
+                BoardSquare currentSquare = boardArray[xCoord, i];
+                if (currentSquare.getWall1().Equals(BoardSquare.Wall.NORTH) || currentSquare.getWall2().Equals(BoardSquare.Wall.NORTH))
+                {
+                    return numValid;
+                }
+                else if (currentSquare.isOccupied() == true)
+                {
+                    return numValid;
+                }
+                else
+                {
+                    numValid++;
+                }
+            }
+            return numValid;
+        }
+
+
+        public void moveShuttle(int row)
+        {
+            for (int i = 0; i <= boardWidth; i++)
+            {
+                boardArray[i, row] = boardArray[(i + 1), row];
+            }
+        }
+
+        public int gameWon()
+        {
+            int winner = 0;
+            if (boardArray[4, 0].getPiece() == 1 && boardArray[5, 0].getPiece() == 1 && boardArray[6, 0].getPiece() == 1 && boardArray[7, 0].getPiece() == 1 && boardArray[8, 0].getPiece() == 1)
+            {
+                winner = 1;
+                return winner;
+            }
+            else if (boardArray[4, 10].getPiece() == 2 && boardArray[5, 10].getPiece() == 2 && boardArray[6, 10].getPiece() == 2 && boardArray[7, 10].getPiece() == 2 && boardArray[8, 10].getPiece() == 2)
+            {
+                winner = 2;
+                return winner;
+            }
+            return winner;
+        }
+
+        public List<Vector2> returnValidMovesEast()
+        {
 
         }
 
-        }
+
+
+    }
+
+}
                           
-        }
 

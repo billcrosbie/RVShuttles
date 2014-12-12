@@ -62,7 +62,6 @@ namespace Shuttles
             {
                 piece = 0;
             }
-
         }
 
         public int getRow()
