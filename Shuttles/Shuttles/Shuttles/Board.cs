@@ -30,11 +30,6 @@ namespace Shuttles
                     boardArray[i , j] = new BoardSquare(i, j, BoardSquare.Wall.NONE, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
                 }
             }
-        }
-
-
-        public void setWalls()
-        {
             boardArray[5, 9] = new BoardSquare(5, 9, BoardSquare.Wall.EAST, BoardSquare.Wall.NORTH, BoardSquare.Occupant.NONE);
             boardArray[4, 9] = new BoardSquare(4, 9, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
             boardArray[3, 8] = new BoardSquare(3, 8, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
@@ -58,15 +53,25 @@ namespace Shuttles
             boardArray[5, 3] = new BoardSquare(5, 3, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
             boardArray[6, 8] = new BoardSquare(6, 8, BoardSquare.Wall.NORTH, BoardSquare.Wall.EAST, BoardSquare.Occupant.NONE);
             boardArray[6, 7] = new BoardSquare(6, 7, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
-            
-
+            boardArray[6, 3] = new BoardSquare(6, 3, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[6, 1] = new BoardSquare(6, 1, BoardSquare.Wall.EAST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[7, 7] = new BoardSquare(7, 7, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[7, 5] = new BoardSquare(7, 5, BoardSquare.Wall.SOUTH, BoardSquare.Wall.WEST, BoardSquare.Occupant.NONE);
+            boardArray[7, 4] = new BoardSquare(7, 5, BoardSquare.Wall.NORTH, BoardSquare.Wall.WEST, BoardSquare.Occupant.NONE);
+            boardArray[7, 1] = new BoardSquare(7, 1, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[8, 7] = new BoardSquare(8, 7, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[8, 5] = new BoardSquare(8, 5, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NORTH, BoardSquare.Occupant.NONE);
+            boardArray[8, 4] = new BoardSquare(8, 4, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[8, 1] = new BoardSquare(8, 1, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[9, 7] = new BoardSquare(9, 7, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[9, 5] = new BoardSquare(9, 5, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[9, 2] = new BoardSquare(9, 2, BoardSquare.Wall.WEST, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[10, 8] = new BoardSquare(10, 8, BoardSquare.Wall.NORTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
+            boardArray[10, 2] = new BoardSquare(10, 2, BoardSquare.Wall.SOUTH, BoardSquare.Wall.NONE, BoardSquare.Occupant.NONE);
         }
 
 
-
-
-
-                    
+                          
         }
     }
 
