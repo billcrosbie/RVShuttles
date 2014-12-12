@@ -96,6 +96,8 @@ namespace Shuttles
             List<Vector2> validMoves = new List<Vector2>();
 
             //east first
+            //currentsquare is where you are
+            //checkedsquare is ideally where we are checking for jumps and what not
             for(int i = xCoord; i < boardWidth; i++)
             {
                 BoardSquare currentSquare = boardArray[i, yCoord];
