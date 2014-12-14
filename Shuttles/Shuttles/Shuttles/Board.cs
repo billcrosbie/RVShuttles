@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+
 
 namespace Shuttles
 {
@@ -123,9 +117,9 @@ namespace Shuttles
                          * accounts for some weird conditions such as:
                          * jumping over player, jumping over player to find wall on other side, jumping over player to find other player on other side
                          */
-                        if(checkedSquare.getWall1().Equals(BoardSquare.Wall.EAST) ||
-                            checkedSquare.getWall2().Equals(BoardSquare.Wall.EAST) ||
-                            checkedSquare.isOccupied() == true)
+						if(boardArray[(i+1), yCoord].getWall1().Equals(BoardSquare.Wall.EAST) ||
+							boardArray[(i+1), yCoord].getWall2().Equals(BoardSquare.Wall.EAST) ||
+							boardArray[(i+1), yCoord].isOccupied() == true)
                         {
                             validMoves = validMoves;
                         }
@@ -134,9 +128,16 @@ namespace Shuttles
                             validMoves.Add(new Vector2(checkedSquare.getX(), checkedSquare.getY()));
                         }
 
+					}
+
+				}
+
+				validMoves.Add(new Vector2(checkedSquare.getX(), checkedSquare.getY()));
+
 
 
         }
+		}
 
 
 
